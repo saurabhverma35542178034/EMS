@@ -3,8 +3,8 @@ import { AuthContext } from '../../Context/AuthProvider'
 
 const Alltask = () => {
 
-    const authdata = useContext(AuthContext);
-    console.log("authdata", authdata);
+    const [user,setUser] = useContext(AuthContext);
+    console.log("user", user);
     
   return (
     <div className='bg-[#1c1c1c] p-5 rounded mt-5 h-40'>
@@ -17,7 +17,7 @@ const Alltask = () => {
           </div>   
 
     <div className='h-[80%] overflow-auto'>    
-    { authdata.employees.map(function(data,index){
+    { user.employees.map(function(data,index){
 
         return (
             <div className='overflow-auto' key={index}>

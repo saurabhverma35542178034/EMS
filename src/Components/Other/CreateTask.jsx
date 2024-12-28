@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import  { useContext } from 'react'
+import { AuthContext } from '../../Context/AuthProvider'
 
 const CreateTask = () => {
+  const [users , setUsers] = useContext(AuthContext);
   const [taskData, setTaskData] = useState({
     title: '',
     date: '',
@@ -8,10 +11,39 @@ const CreateTask = () => {
     category: '',
     description: ''
   });
+  const [task , setTask]=useState({});
+  // const[newTask,setNewTask]=useState({});
 
   const submitHandler = (e) => {
     e.preventDefault();
     console.log(taskData); // Optionally log the form data for submission
+    setTask({...taskData ,active:false ,newTask:true , failed:false , completed:false });
+    
+    const data=users;
+    console.log("users", users);
+    data.employees.forEach((elem)=>{
+      if(taskData.assignTo==elem.firstName)
+        {console.log("Bas yhi chauye");
+          elem.tasks.push(task);
+          elem.taskCounts.newTask=elem.taskCounts.newTask+1;
+        }
+        
+    })
+    setUsers(data);
+    // localStorage.setItem('employees',JSON.stringify(data))
+    
+    
+
+      console.log("task==>",task);
+    setTaskData({title: '',
+      date: '',
+      assignTo: '',
+      category: '',
+      description: ''});
+
+      
+      
+
   };
 
   const handleInputChange = (e) => {
